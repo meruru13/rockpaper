@@ -71,6 +71,37 @@ function game(userChoice) {
   }
 }
 
+function resultSingle(resultTextSingle) {
+  let text = resultTextSingle + "\nPlay again?";
+  if (confirm(text) == true) {
+    userScore = 0;
+    computerScore = 0;
+  } else {
+    close();
+  }
+}
+
+function singleGame(userChoice) {
+  const computerChoice = getComputerChoice();
+  switch (userChoice + computerChoice) {
+    case "rs":
+    case "pr":
+    case "sp":
+      resultSingle("You win!");
+      break;
+    case "sr":
+    case "rp":
+    case "ps":
+      resultSingle("You lose!");
+      break;
+    case "rr":
+    case "pp":
+    case "ss":
+      resultSingle("It's a draw!");
+      break;
+  }
+}
+
 function main() {
   rockDiv.addEventListener('click', function() {
   game("r");
@@ -84,4 +115,26 @@ function main() {
   game("s");
   })
 }
-main();
+function singleRound() {
+  rockDiv.addEventListener('click', function() {
+  singleGame("r");
+  })
+  
+  paperDiv.addEventListener('click', function() {
+    singleGame("p")
+  })
+  
+  scissorsDiv.addEventListener('click', function() {
+    singleGame("s");
+  })
+}
+
+function gameChoice() {
+  let text = "Choose the game mode: OK for best out of three mode, CANCEL for single round game.";
+  if (confirm(text) == true) {
+    main();
+  } else {
+    singleRound();
+  }
+}
+gameChoice();
